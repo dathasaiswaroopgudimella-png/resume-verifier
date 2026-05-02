@@ -2,65 +2,91 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
 import { useListJobs, useListResumes, useRankCandidates } from "@workspace/api-client-react";
 import type { MatchResultDecision } from "@workspace/api-client-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Trophy, ChevronRight, Scale } from "lucide-react";
+import { Trophy, Medal, ChevronRight, ListOrdered, Loader2 } from "lucide-react";
 
-function DecisionBadge({ decision }: { decision: MatchResultDecision }) {
-  switch (decision) {
-    case "STRONG_FIT": return <Badge className="bg-green-600 hover:bg-green-700 text-white">Strong Fit</Badge>;
-    case "GOOD_FIT": return <Badge className="bg-blue-600 hover:bg-blue-700 text-white">Good Fit</Badge>;
-    case "WEAK_FIT": return <Badge className="bg-amber-600 hover:bg-amber-700 text-white">Weak Fit</Badge>;
-    case "REJECT": return <Badge variant="destructive">Reject</Badge>;
-    case "INSUFFICIENT_DATA": return <Badge variant="secondary">Insufficient Data</Badge>;
-    default: return <Badge>{decision}</Badge>;
+function decisionStyle(d: MatchResultDecision) {
+  switch (d) {
+    case "STRONG_FIT": return "bg-emerald-950/50 text-emerald-400 border-emerald-800/60";
+    case "GOOD_FIT":   return "bg-blue-950/50 text-blue-400 border-blue-800/60";
+    case "WEAK_FIT":   return "bg-amber-950/40 text-amber-400 border-amber-800/50";
+    case "REJECT":     return "bg-red-950/40 text-red-400 border-red-900/50";
+    default:           return "bg-slate-900 text-slate-400 border-slate-700";
   }
+}
+
+function decisionLabel(d: MatchResultDecision) {
+  switch (d) {
+    case "STRONG_FIT": return "Strong Fit";
+    case "GOOD_FIT":   return "Good Fit";
+    case "WEAK_FIT":   return "Weak Fit";
+    case "REJECT":     return "Reject";
+    default:           return "No Data";
+  }
+}
+
+function RankMedal({ rank }: { rank: number }) {
+  if (rank === 1) return (
+    <div className="flex flex-col items-center gap-0.5">
+      <Trophy className="w-5 h-5 text-amber-400" />
+      <span className="text-[10px] font-bold text-amber-400">#1</span>
+    </div>
+  );
+  if (rank === 2) return (
+    <div className="flex flex-col items-center gap-0.5">
+      <Medal className="w-5 h-5 text-slate-300" />
+      <span className="text-[10px] font-bold text-slate-300">#2</span>
+    </div>
+  );
+  if (rank === 3) return (
+    <div className="flex flex-col items-center gap-0.5">
+      <Medal className="w-5 h-5 text-amber-700" />
+      <span className="text-[10px] font-bold text-amber-700">#3</span>
+    </div>
+  );
+  return <span className="text-sm text-slate-600 font-mono w-7 text-center">#{rank}</span>;
 }
 
 export default function RankPage() {
   const [selectedJobId, setSelectedJobId] = useState<string>("");
-  
   const { data: jobs, isLoading: isJobsLoading } = useListJobs();
-  const { data: resumes, isLoading: isResumesLoading } = useListResumes();
-  
+  const { data: resumes } = useListResumes();
   const rankMutation = useRankCandidates();
 
   const handleRank = () => {
     if (!selectedJobId) return;
     const job = jobs?.find(j => j.id === selectedJobId);
     if (!job) return;
-
-    rankMutation.mutate({ 
-      data: { 
-        jobText: job.description,
-        jobId: job.id,
-      } 
-    });
+    rankMutation.mutate({ data: { jobText: job.description, jobId: job.id } });
   };
 
+  const ranked = rankMutation.data?.ranked ?? [];
+  const comparisons = rankMutation.data?.pairwiseComparisons ?? [];
+  const maxScore = ranked.length > 0 ? Math.max(...ranked.map(c => c.matchResult.finalScore), 1) : 100;
+
   return (
-    <div className="space-y-8 max-w-6xl mx-auto">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold tracking-tight">Candidate Ranking</h1>
-        <p className="text-muted-foreground">Bulk process and rank candidates against a target profile.</p>
+    <div className="max-w-6xl mx-auto space-y-8">
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight">Candidate Ranking</h1>
+        <p className="text-sm text-slate-500 mt-1">
+          Rank all dataset candidates against a target job profile in a single pass.
+        </p>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Ranking Execution</CardTitle>
-          <CardDescription>Select a target profile to rank all available candidates in the dataset.</CardDescription>
-        </CardHeader>
-        <CardContent>
+      <Card className="border-slate-800 bg-slate-900/40">
+        <CardContent className="pt-6">
           <div className="flex gap-4 items-end">
             <div className="space-y-2 flex-1">
-              <label className="text-sm font-medium">Target Job Profile</label>
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Target Job Profile
+              </label>
               <Select value={selectedJobId} onValueChange={setSelectedJobId} disabled={isJobsLoading}>
-                <SelectTrigger data-testid="select-job">
-                  <SelectValue placeholder="Select a job to rank against..." />
+                <SelectTrigger className="border-slate-700 bg-slate-900" data-testid="select-job">
+                  <SelectValue placeholder="Select a job to rank against…" />
                 </SelectTrigger>
                 <SelectContent>
                   {jobs?.map(job => (
@@ -69,116 +95,125 @@ export default function RankPage() {
                 </SelectContent>
               </Select>
             </div>
-            
-            <Button 
-              onClick={handleRank} 
+            <Button
+              onClick={handleRank}
               disabled={!selectedJobId || rankMutation.isPending}
               data-testid="button-rank"
             >
-              {rankMutation.isPending ? "Ranking..." : "Rank Candidates"}
+              {rankMutation.isPending ? (
+                <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Ranking…</>
+              ) : (
+                <><ListOrdered className="w-4 h-4 mr-2" /> Rank All Candidates</>
+              )}
             </Button>
           </div>
         </CardContent>
       </Card>
 
       {rankMutation.isPending && (
-        <div className="space-y-4 mt-8">
-          <Skeleton className="h-[400px] w-full rounded-xl" />
-          <Skeleton className="h-[200px] w-full rounded-xl" />
+        <div className="space-y-3">
+          {[1, 2, 3, 4, 5].map(i => <Skeleton key={i} className="h-16 w-full rounded-xl" />)}
         </div>
       )}
 
-      {rankMutation.data && (
-        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-          <Card className="bg-slate-900 border-slate-800 text-slate-100 overflow-hidden">
-            <CardHeader className="bg-slate-950 border-b border-slate-800 flex flex-row items-center justify-between">
-              <CardTitle className="text-lg">Ranked Candidates</CardTitle>
-              <Badge variant="outline" className="border-slate-700 text-slate-300">
-                {rankMutation.data.ranked.length} evaluated
-              </Badge>
-            </CardHeader>
-            <Table>
-              <TableHeader className="bg-slate-900">
-                <TableRow className="border-slate-800 hover:bg-slate-900">
-                  <TableHead className="w-16 text-center text-slate-400">Rank</TableHead>
-                  <TableHead className="text-slate-400">Candidate Profile</TableHead>
-                  <TableHead className="text-slate-400">Category</TableHead>
-                  <TableHead className="text-slate-400 w-48">Score</TableHead>
-                  <TableHead className="text-slate-400">Decision</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {rankMutation.data.ranked.map((candidate, idx) => {
-                  const isTop3 = idx < 3;
-                  return (
-                    <TableRow 
-                      key={candidate.resumeId} 
-                      className={`border-slate-800 hover:bg-slate-800/50 ${isTop3 ? 'bg-slate-800/20' : ''}`}
-                    >
-                      <TableCell className="text-center font-mono">
-                        {isTop3 ? (
-                          <div className="flex items-center justify-center text-amber-400">
-                            <Trophy className="w-4 h-4 mr-1" /> {candidate.rank}
-                          </div>
-                        ) : (
-                          <span className="text-slate-500">{candidate.rank}</span>
+      {rankMutation.data && !rankMutation.isPending && (
+        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
+
+          {/* Ranked list */}
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Ranked Candidates</h2>
+              <span className="text-xs text-slate-600">{ranked.length} evaluated</span>
+            </div>
+
+            <div className="space-y-2">
+              {ranked.map((candidate, idx) => {
+                const isTop3 = idx < 3;
+                const pct = maxScore > 0 ? (candidate.matchResult.finalScore / maxScore) * 100 : 0;
+                const resumeCategory = resumes?.find(r => r.id === candidate.resumeId)?.category;
+                const dStyle = decisionStyle(candidate.matchResult.decision);
+
+                return (
+                  <div
+                    key={candidate.resumeId}
+                    className={`flex items-center gap-4 rounded-xl border px-4 py-3 transition-colors ${
+                      isTop3
+                        ? "border-slate-700 bg-slate-900/80"
+                        : "border-slate-800/60 bg-slate-900/30"
+                    }`}
+                  >
+                    <div className="w-10 flex justify-center shrink-0">
+                      <RankMedal rank={candidate.rank} />
+                    </div>
+
+                    <div className="flex-1 min-w-0 space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-semibold text-slate-200">
+                          {candidate.label || candidate.resumeId}
+                        </span>
+                        {resumeCategory && (
+                          <span className="text-xs text-slate-500">{resumeCategory}</span>
                         )}
-                      </TableCell>
-                      <TableCell className="font-medium text-slate-200">
-                        {candidate.resumeId.substring(0, 8)}...
-                        <div className="text-xs text-slate-500 font-normal mt-1">{candidate.label || "Dataset Resume"}</div>
-                      </TableCell>
-                      <TableCell className="text-slate-400">
-                        {resumes?.find(r => r.id === candidate.resumeId)?.category || "Unknown"}
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-3">
-                          <span className="font-mono text-sm w-8 text-right text-slate-200">
-                            {candidate.matchResult.finalScore}
-                          </span>
-                          <Progress 
-                            value={candidate.matchResult.finalScore} 
-                            className="h-2 w-24 bg-slate-800"
-                            // Custom colored progress bar via style
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden max-w-[200px]">
+                          <div
+                            className={`h-full rounded-full ${
+                              idx < 3 ? "bg-primary" : "bg-slate-600"
+                            }`}
+                            style={{ width: `${pct}%` }}
                           />
                         </div>
-                      </TableCell>
-                      <TableCell>
-                        <DecisionBadge decision={candidate.matchResult.decision} />
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </Card>
-
-          {rankMutation.data.pairwiseComparisons.length > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Scale className="w-5 h-5 text-muted-foreground" />
-                  Top Pairwise Differentiators
-                </CardTitle>
-                <CardDescription>Key reasons why higher ranked candidates outperformed lower ones</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {rankMutation.data.pairwiseComparisons.map((comp, i) => (
-                  <div key={i} className="flex flex-col gap-2 p-4 rounded-lg bg-slate-50 dark:bg-slate-900 border">
-                    <div className="flex items-center gap-4 text-sm font-medium">
-                      <Badge variant="outline" className="font-mono bg-background">{comp.candidateA.substring(0,6)}</Badge>
-                      <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                      <Badge variant="outline" className="font-mono bg-background">{comp.candidateB.substring(0,6)}</Badge>
-                      <span className="text-muted-foreground ml-auto">Δ {comp.scoreDiff} pts</span>
+                        <span className="text-xs font-mono text-slate-400 tabular-nums">
+                          {candidate.matchResult.finalScore}
+                        </span>
+                      </div>
                     </div>
-                    <p className="text-sm text-foreground/80 leading-relaxed border-l-2 border-primary/50 pl-3 py-1">
+
+                    <Badge
+                      variant="outline"
+                      className={`text-xs shrink-0 ${dStyle}`}
+                    >
+                      {decisionLabel(candidate.matchResult.decision)}
+                    </Badge>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Pairwise comparisons */}
+          {comparisons.length > 0 && (
+            <div>
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-4">
+                Top Differentiators
+              </h2>
+              <div className="space-y-3">
+                {comparisons.map((comp, i) => (
+                  <div key={i} className="rounded-xl border border-slate-800 bg-slate-900/40 p-4">
+                    <div className="flex items-center gap-3 mb-2">
+                      <Badge variant="outline" className="font-mono text-xs border-slate-700">{comp.candidateA}</Badge>
+                      <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
+                      <Badge variant="outline" className="font-mono text-xs border-slate-700">{comp.candidateB}</Badge>
+                      <span className="text-xs text-slate-500 ml-auto">Δ {comp.scoreDiff} pts</span>
+                    </div>
+                    <p className="text-sm text-slate-300 leading-relaxed border-l-2 border-slate-700 pl-3">
                       {comp.keyDifferentiator}
                     </p>
                   </div>
                 ))}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           )}
+        </div>
+      )}
+
+      {!rankMutation.data && !rankMutation.isPending && (
+        <div className="border border-dashed border-slate-800 rounded-xl p-10 text-center">
+          <ListOrdered className="w-8 h-8 mx-auto mb-3 text-slate-700" />
+          <p className="text-sm text-slate-500 max-w-sm mx-auto leading-relaxed">
+            Select a job profile above to rank all 18 benchmark candidates simultaneously. The engine evaluates each in parallel and surfaces the best fit at the top.
+          </p>
         </div>
       )}
     </div>
