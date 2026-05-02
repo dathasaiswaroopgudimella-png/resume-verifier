@@ -1,0 +1,132 @@
+[
+  {
+    "resumeId": "R001",
+    "jobId": "J001",
+    "humanRater": "Senior Recruiter",
+    "scores": {
+      "skillMatch": 3,
+      "experienceRelevance": 2,
+      "domainFit": 5
+    },
+    "totalScore": 10,
+    "humanDecision": "WEAK_FIT",
+    "notes": "IT background but intern-level experience, not enough for senior role"
+  },
+  {
+    "resumeId": "R002",
+    "jobId": "J001",
+    "humanRater": "Senior Recruiter",
+    "scores": {
+      "skillMatch": 3,
+      "experienceRelevance": 3,
+      "domainFit": 5
+    },
+    "totalScore": 11,
+    "humanDecision": "GOOD_FIT",
+    "notes": "Solid IT professional, reasonable match for the role"
+  },
+  {
+    "resumeId": "R003",
+    "jobId": "J001",
+    "humanRater": "Senior Recruiter",
+    "scores": {
+      "skillMatch": 4,
+      "experienceRelevance": 4,
+      "domainFit": 5
+    },
+    "totalScore": 13,
+    "humanDecision": "STRONG_FIT",
+    "notes": "Strong IT profile, good fit for senior engineering role"
+  },
+  {
+    "resumeId": "R006",
+    "jobId": "J005",
+    "humanRater": "Finance Recruiter",
+    "scores": {
+      "skillMatch": 4,
+      "experienceRelevance": 4,
+      "domainFit": 5
+    },
+    "totalScore": 13,
+    "humanDecision": "STRONG_FIT",
+    "notes": "Clear financial background, strong domain fit"
+  },
+  {
+    "resumeId": "R007",
+    "jobId": "J005",
+    "humanRater": "Finance Recruiter",
+    "scores": {
+      "skillMatch": 3,
+      "experienceRelevance": 3,
+      "domainFit": 5
+    },
+    "totalScore": 11,
+    "humanDecision": "GOOD_FIT",
+    "notes": "Finance background, decent match"
+  },
+  {
+    "resumeId": "R008",
+    "jobId": "J006",
+    "humanRater": "HR Director",
+    "scores": {
+      "skillMatch": 4,
+      "experienceRelevance": 4,
+      "domainFit": 5
+    },
+    "totalScore": 13,
+    "humanDecision": "STRONG_FIT",
+    "notes": "Strong HR background, good fit for HRBP role"
+  },
+  {
+    "resumeId": "R009",
+    "jobId": "J006",
+    "humanRater": "HR Director",
+    "scores": {
+      "skillMatch": 5,
+      "experienceRelevance": 5,
+      "domainFit": 5
+    },
+    "totalScore": 15,
+    "humanDecision": "STRONG_FIT",
+    "notes": "Perfect HR HRBP profile"
+  },
+  {
+    "resumeId": "R015",
+    "jobId": "J001",
+    "humanRater": "Senior Recruiter",
+    "scores": {
+      "skillMatch": 1,
+      "experienceRelevance": 2,
+      "domainFit": 3
+    },
+    "totalScore": 6,
+    "humanDecision": "REJECT",
+    "notes": "Keyword stuffed resume - obvious gaming attempt, no depth"
+  },
+  {
+    "resumeId": "R017",
+    "jobId": "J001",
+    "humanRater": "Senior Recruiter",
+    "scores": {
+      "skillMatch": 0,
+      "experienceRelevance": 0,
+      "domainFit": 0
+    },
+    "totalScore": 0,
+    "humanDecision": "REJECT",
+    "notes": "Chef applying for senior software engineer - complete domain mismatch"
+  },
+  {
+    "resumeId": "R018",
+    "jobId": "J001",
+    "humanRater": "Senior Recruiter",
+    "scores": {
+      "skillMatch": 0,
+      "experienceRelevance": 0,
+      "domainFit": 1
+    },
+    "totalScore": 1,
+    "humanDecision": "REJECT",
+    "notes": "Extremely sparse resume - generic buzzwords, no technical content"
+  }
+]

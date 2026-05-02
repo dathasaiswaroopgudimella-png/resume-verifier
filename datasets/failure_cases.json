@@ -1,0 +1,38 @@
+[
+  {
+    "id": "FC001",
+    "resumeId": "R015",
+    "jobId": "J001",
+    "failureMode": "adversarial_keyword_stuffing",
+    "description": "Resume repeats high-value keywords 10-15 times. Basic TF-IDF would give inflated semantic score. System applies diminishing returns to cap inflation.",
+    "systemBehavior": "Adversarial detection triggered. Score damped via 1/log(1+freq). False positive risk reduced.",
+    "expectedMitigation": "Score should be <40 despite keyword density"
+  },
+  {
+    "id": "FC002",
+    "resumeId": "R016",
+    "jobId": "J001",
+    "failureMode": "skill_extraction_failure",
+    "description": "Hidden skills resume uses impact language ('shipped', 'led', '500k requests/sec') without naming tools explicitly. System misses Python, Docker, Kubernetes.",
+    "systemBehavior": "Implicit phrase detection adds partial credit. Score lower than human assessment.",
+    "expectedMitigation": "Implied skills detected via phrase mapping but still weighted lower"
+  },
+  {
+    "id": "FC003",
+    "resumeId": "R017",
+    "jobId": "J001",
+    "failureMode": "domain_confusion",
+    "description": "Chef resume contains words like 'management', 'teams', 'budget' that could confuse domain classifier. System must detect domain mismatch via skill distribution.",
+    "systemBehavior": "Domain classifier assigns high HEALTHCARE/CHEF probability, low IT. Penalty applied.",
+    "expectedMitigation": "Domain mismatch penalty + near-zero skill match \u2192 REJECT"
+  },
+  {
+    "id": "FC004",
+    "resumeId": "R018",
+    "jobId": "J001",
+    "failureMode": "sparse_resume",
+    "description": "Generic buzzword resume ('team player', 'quick learner') with no technical content. Low word count, high stop-word ratio.",
+    "systemBehavior": "Low confidence due to sparse input. INSUFFICIENT_DATA or REJECT with warning.",
+    "expectedMitigation": "Low confidence flag, parser warning, near-zero skill and semantic scores"
+  }
+]

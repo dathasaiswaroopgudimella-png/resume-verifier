@@ -1,0 +1,249 @@
+[
+  {
+    "id": "J001",
+    "title": "Senior Software Engineer \u2013 Backend",
+    "domain": "INFORMATION-TECHNOLOGY",
+    "description": "We are looking for a Senior Backend Software Engineer with strong experience in Python or Node.js, microservices, and cloud infrastructure (AWS/GCP). You will design and implement scalable APIs, lead technical architecture decisions, and mentor junior engineers. Experience with distributed systems, containerization (Docker/Kubernetes), and CI/CD pipelines is required.",
+    "requiredSkills": [
+      "Python",
+      "Node.js",
+      "REST API",
+      "Docker",
+      "Kubernetes",
+      "AWS",
+      "SQL",
+      "microservices"
+    ],
+    "preferredSkills": [
+      "Go",
+      "Kafka",
+      "Redis",
+      "Terraform",
+      "GraphQL"
+    ],
+    "experienceRequired": 5,
+    "seniority": "Senior"
+  },
+  {
+    "id": "J002",
+    "title": "Full Stack Developer",
+    "domain": "INFORMATION-TECHNOLOGY",
+    "description": "Seeking a Full Stack Developer proficient in React, TypeScript, and a backend language (Node.js or Python). You will build end-to-end features, collaborate with product and design teams, write unit and integration tests, and ensure performance and accessibility standards. Experience with PostgreSQL and cloud deployment is required.",
+    "requiredSkills": [
+      "React",
+      "TypeScript",
+      "JavaScript",
+      "Node.js",
+      "PostgreSQL",
+      "HTML",
+      "CSS",
+      "Git"
+    ],
+    "preferredSkills": [
+      "Next.js",
+      "GraphQL",
+      "AWS",
+      "Docker",
+      "Testing",
+      "CI/CD"
+    ],
+    "experienceRequired": 3,
+    "seniority": "Mid"
+  },
+  {
+    "id": "J003",
+    "title": "Machine Learning Engineer",
+    "domain": "INFORMATION-TECHNOLOGY",
+    "description": "We are hiring a Machine Learning Engineer to build, train, and deploy ML models at scale. You will work on NLP, recommendation systems, and computer vision pipelines. Strong Python, TensorFlow or PyTorch, and data engineering skills are required. Experience with MLflow, feature stores, and model serving infrastructure is preferred.",
+    "requiredSkills": [
+      "Python",
+      "Machine Learning",
+      "TensorFlow",
+      "PyTorch",
+      "SQL",
+      "data pipeline",
+      "statistics"
+    ],
+    "preferredSkills": [
+      "MLflow",
+      "Spark",
+      "Kubernetes",
+      "NLP",
+      "computer vision",
+      "Kafka",
+      "feature store"
+    ],
+    "experienceRequired": 4,
+    "seniority": "Mid-Senior"
+  },
+  {
+    "id": "J004",
+    "title": "DevOps / Platform Engineer",
+    "domain": "INFORMATION-TECHNOLOGY",
+    "description": "Looking for a DevOps/Platform Engineer to build and maintain cloud infrastructure, CI/CD pipelines, and developer tooling. You will manage Kubernetes clusters, implement observability solutions, and drive infrastructure-as-code practices using Terraform. Strong AWS/GCP and scripting experience required.",
+    "requiredSkills": [
+      "AWS",
+      "Kubernetes",
+      "Docker",
+      "Terraform",
+      "CI/CD",
+      "Linux",
+      "Python",
+      "Shell scripting"
+    ],
+    "preferredSkills": [
+      "GCP",
+      "Prometheus",
+      "Grafana",
+      "Helm",
+      "Ansible",
+      "Go"
+    ],
+    "experienceRequired": 4,
+    "seniority": "Senior"
+  },
+  {
+    "id": "J005",
+    "title": "Financial Analyst",
+    "domain": "FINANCE",
+    "description": "We are seeking a Financial Analyst to support financial planning, budgeting, and variance analysis. Responsibilities include building financial models in Excel, preparing management reports, conducting scenario analysis, and supporting the annual planning cycle. CFA or CPA certification is a plus.",
+    "requiredSkills": [
+      "Excel",
+      "financial modeling",
+      "budgeting",
+      "variance analysis",
+      "accounting",
+      "financial reporting"
+    ],
+    "preferredSkills": [
+      "SQL",
+      "Python",
+      "Tableau",
+      "SAP",
+      "CFA",
+      "CPA",
+      "PowerBI"
+    ],
+    "experienceRequired": 2,
+    "seniority": "Mid"
+  },
+  {
+    "id": "J006",
+    "title": "HR Business Partner",
+    "domain": "HR",
+    "description": "Seeking an experienced HR Business Partner to support business leaders on talent management, employee relations, performance management, and organizational development. You will partner with leadership on workforce planning, drive employee engagement initiatives, and ensure compliance with employment law.",
+    "requiredSkills": [
+      "employee relations",
+      "talent management",
+      "performance management",
+      "HRIS",
+      "HR strategy",
+      "recruiting"
+    ],
+    "preferredSkills": [
+      "Workday",
+      "SuccessFactors",
+      "data analysis",
+      "change management",
+      "L&D"
+    ],
+    "experienceRequired": 5,
+    "seniority": "Senior"
+  },
+  {
+    "id": "J007",
+    "title": "Investment Banking Analyst",
+    "domain": "BANKING",
+    "description": "Join our Investment Banking team as an Analyst. Responsibilities include financial modeling (DCF, LBO, comps), pitch book preparation, market research, and supporting M&A and capital markets transactions. Strong Excel, PowerPoint, and financial analysis skills required. MBA or CFA preferred.",
+    "requiredSkills": [
+      "financial modeling",
+      "DCF",
+      "Excel",
+      "PowerPoint",
+      "capital markets",
+      "M&A",
+      "accounting",
+      "valuation"
+    ],
+    "preferredSkills": [
+      "Bloomberg",
+      "LBO modeling",
+      "CFA",
+      "MBA",
+      "FactSet"
+    ],
+    "experienceRequired": 2,
+    "seniority": "Junior"
+  },
+  {
+    "id": "J008",
+    "title": "Enterprise Sales Manager",
+    "domain": "SALES",
+    "description": "We are looking for an Enterprise Sales Manager to drive revenue growth by managing complex sales cycles, building executive relationships, and closing large deals. Experience with CRM systems (Salesforce), consultative selling, and SaaS products is required. You will own a territory quota and lead a small team.",
+    "requiredSkills": [
+      "B2B sales",
+      "Salesforce",
+      "account management",
+      "CRM",
+      "negotiation",
+      "pipeline management",
+      "SaaS"
+    ],
+    "preferredSkills": [
+      "MEDDIC",
+      "enterprise software",
+      "team leadership",
+      "quota management"
+    ],
+    "experienceRequired": 5,
+    "seniority": "Senior"
+  },
+  {
+    "id": "J009",
+    "title": "Civil / Structural Engineer",
+    "domain": "ENGINEERING",
+    "description": "Seeking a Civil/Structural Engineer for infrastructure and building design projects. Responsibilities include structural analysis, CAD drafting, project management, and coordination with contractors. PE license preferred. Experience with AutoCAD, Revit, and STAAD Pro required.",
+    "requiredSkills": [
+      "structural analysis",
+      "AutoCAD",
+      "Revit",
+      "project management",
+      "civil engineering",
+      "construction",
+      "drafting"
+    ],
+    "preferredSkills": [
+      "STAAD Pro",
+      "PE license",
+      "BIM",
+      "geotechnical",
+      "ASCE standards"
+    ],
+    "experienceRequired": 4,
+    "seniority": "Mid"
+  },
+  {
+    "id": "J010",
+    "title": "Clinical Nurse \u2013 ICU",
+    "domain": "HEALTHCARE",
+    "description": "We are hiring an experienced ICU Nurse to provide critical care to patients. Responsibilities include monitoring vital signs, administering medications, coordinating with physicians, and educating patients and families. BSN required, MSN preferred. Active RN license and at least 2 years ICU experience required.",
+    "requiredSkills": [
+      "patient care",
+      "critical care",
+      "medication administration",
+      "RN license",
+      "vital signs monitoring",
+      "ICU",
+      "BSN"
+    ],
+    "preferredSkills": [
+      "ACLS",
+      "CCRN",
+      "ventilator management",
+      "MSN",
+      "wound care"
+    ],
+    "experienceRequired": 2,
+    "seniority": "Mid"
+  }
+]

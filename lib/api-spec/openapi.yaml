@@ -3,20 +3,26 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Resume-Job Matching System API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: matching
+    description: Resume-Job matching engine
+  - name: dataset
+    description: Dataset access endpoints
+  - name: evaluation
+    description: System evaluation and reliability
+
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +30,147 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /match:
+    post:
+      operationId: matchResumeToJob
+      tags: [matching]
+      summary: Match a single resume against a job description
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MatchRequest"
+      responses:
+        "200":
+          description: Match result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MatchResult"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /rank:
+    post:
+      operationId: rankCandidates
+      tags: [matching]
+      summary: Rank multiple resumes against a job description
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RankRequest"
+      responses:
+        "200":
+          description: Ranking result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RankResult"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /stability-test:
+    post:
+      operationId: runStabilityTest
+      tags: [matching]
+      summary: Run stability test on a resume against a job
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StabilityTestRequest"
+      responses:
+        "200":
+          description: Stability test result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StabilityTestResult"
+
+  /jobs:
+    get:
+      operationId: listJobs
+      tags: [dataset]
+      summary: Get sample job descriptions from dataset
+      responses:
+        "200":
+          description: List of jobs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Job"
+
+  /resumes:
+    get:
+      operationId: listResumes
+      tags: [dataset]
+      summary: Get sample resumes from dataset
+      responses:
+        "200":
+          description: List of resumes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Resume"
+
+  /skills:
+    get:
+      operationId: listSkills
+      tags: [dataset]
+      summary: Get skills taxonomy with synonyms
+      responses:
+        "200":
+          description: Skills taxonomy
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SkillEntry"
+
+  /evaluation:
+    get:
+      operationId: getEvaluationMetrics
+      tags: [evaluation]
+      summary: Get system evaluation metrics computed against human validation
+      responses:
+        "200":
+          description: Evaluation metrics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EvaluationMetrics"
+
+  /reliability:
+    get:
+      operationId: getReliabilitySummary
+      tags: [evaluation]
+      summary: Get full reliability summary of the system
+      responses:
+        "200":
+          description: Reliability summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReliabilitySummary"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +181,469 @@ components:
       required:
         - status
 
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: string
+      required:
+        - error
+
+    MatchRequest:
+      type: object
+      properties:
+        resumeText:
+          type: string
+          description: Raw resume text (plain text)
+        jobText:
+          type: string
+          description: Job description text
+        jobId:
+          type: string
+          description: Optional job ID from dataset
+        resumeId:
+          type: string
+          description: Optional resume ID from dataset
+      required:
+        - resumeText
+        - jobText
+
+    MatchResult:
+      type: object
+      properties:
+        finalScore:
+          type: number
+          description: Final score 0-100
+        decision:
+          type: string
+          enum: [STRONG_FIT, GOOD_FIT, WEAK_FIT, REJECT, INSUFFICIENT_DATA]
+        confidence:
+          type: number
+          description: Confidence 0-1
+        semanticScore:
+          type: number
+        weightedSkillScore:
+          type: number
+        experienceScore:
+          type: number
+        baseScore:
+          type: number
+        penalties:
+          $ref: "#/components/schemas/PenaltyBreakdown"
+        matchedSkills:
+          type: array
+          items:
+            type: string
+        missingSkills:
+          type: array
+          items:
+            type: string
+        impliedSkills:
+          type: array
+          items:
+            type: string
+        warnings:
+          type: array
+          items:
+            $ref: "#/components/schemas/Warning"
+        explanation:
+          type: string
+        domainAlignment:
+          $ref: "#/components/schemas/DomainAlignment"
+        adversarialFlags:
+          type: array
+          items:
+            type: string
+      required:
+        - finalScore
+        - decision
+        - confidence
+        - semanticScore
+        - weightedSkillScore
+        - experienceScore
+        - baseScore
+        - penalties
+        - matchedSkills
+        - missingSkills
+        - impliedSkills
+        - warnings
+        - explanation
+        - domainAlignment
+        - adversarialFlags
+
+    PenaltyBreakdown:
+      type: object
+      properties:
+        domainMismatch:
+          type: number
+        lowCoreSkillMatch:
+          type: number
+        experienceGap:
+          type: number
+        total:
+          type: number
+        damped:
+          type: boolean
+      required:
+        - domainMismatch
+        - lowCoreSkillMatch
+        - experienceGap
+        - total
+        - damped
+
+    Warning:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [SEMANTIC_SKILL_CONTRADICTION, SKILL_SEMANTIC_CONTRADICTION, EXPERIENCE_SKILL_CONTRADICTION, ADVERSARIAL_KEYWORD_STUFFING, LOW_CONFIDENCE]
+        message:
+          type: string
+      required:
+        - type
+        - message
+
+    DomainAlignment:
+      type: object
+      properties:
+        detectedDomain:
+          type: string
+        jobDomain:
+          type: string
+        alignmentScore:
+          type: number
+        distribution:
+          type: object
+          additionalProperties:
+            type: number
+      required:
+        - detectedDomain
+        - jobDomain
+        - alignmentScore
+        - distribution
+
+    RankRequest:
+      type: object
+      properties:
+        jobText:
+          type: string
+        jobId:
+          type: string
+        resumeIds:
+          type: array
+          items:
+            type: string
+          description: Resume IDs from dataset (optional, uses all if empty)
+        customResumes:
+          type: array
+          items:
+            $ref: "#/components/schemas/CustomResume"
+      required:
+        - jobText
+
+    CustomResume:
+      type: object
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+        label:
+          type: string
+      required:
+        - id
+        - text
+
+    RankResult:
+      type: object
+      properties:
+        jobSummary:
+          type: string
+        ranked:
+          type: array
+          items:
+            $ref: "#/components/schemas/RankedCandidate"
+        top3:
+          type: array
+          items:
+            $ref: "#/components/schemas/RankedCandidate"
+        pairwiseComparisons:
+          type: array
+          items:
+            $ref: "#/components/schemas/PairwiseComparison"
+      required:
+        - jobSummary
+        - ranked
+        - top3
+        - pairwiseComparisons
+
+    RankedCandidate:
+      type: object
+      properties:
+        rank:
+          type: integer
+        resumeId:
+          type: string
+        label:
+          type: string
+        matchResult:
+          $ref: "#/components/schemas/MatchResult"
+      required:
+        - rank
+        - resumeId
+        - label
+        - matchResult
+
+    PairwiseComparison:
+      type: object
+      properties:
+        candidateA:
+          type: string
+        candidateB:
+          type: string
+        winner:
+          type: string
+        scoreDiff:
+          type: number
+        keyDifferentiator:
+          type: string
+      required:
+        - candidateA
+        - candidateB
+        - winner
+        - scoreDiff
+        - keyDifferentiator
+
+    StabilityTestRequest:
+      type: object
+      properties:
+        resumeText:
+          type: string
+        jobText:
+          type: string
+        resumeId:
+          type: string
+        jobId:
+          type: string
+      required:
+        - jobText
+
+    StabilityTestResult:
+      type: object
+      properties:
+        original:
+          $ref: "#/components/schemas/MatchResult"
+        modified:
+          $ref: "#/components/schemas/MatchResult"
+        modification:
+          type: string
+          description: Description of the modification applied
+        scoreVariance:
+          type: number
+        rankShift:
+          type: integer
+        stability:
+          type: string
+          enum: [HIGH, MEDIUM, LOW]
+        analysis:
+          type: string
+      required:
+        - original
+        - modified
+        - modification
+        - scoreVariance
+        - rankShift
+        - stability
+        - analysis
+
+    Job:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        domain:
+          type: string
+        description:
+          type: string
+        requiredSkills:
+          type: array
+          items:
+            type: string
+        preferredSkills:
+          type: array
+          items:
+            type: string
+        experienceRequired:
+          type: integer
+        seniority:
+          type: string
+      required:
+        - id
+        - title
+        - domain
+        - description
+        - requiredSkills
+        - preferredSkills
+        - experienceRequired
+        - seniority
+
+    Resume:
+      type: object
+      properties:
+        id:
+          type: string
+        category:
+          type: string
+        experienceYears:
+          type: integer
+          nullable: true
+        source:
+          type: string
+        syntheticType:
+          type: string
+          nullable: true
+        preview:
+          type: string
+          description: First 500 chars of resume text
+      required:
+        - id
+        - category
+        - source
+        - preview
+
+    SkillEntry:
+      type: object
+      properties:
+        canonical:
+          type: string
+        synonyms:
+          type: array
+          items:
+            type: string
+        implicitPhrases:
+          type: array
+          items:
+            type: string
+        domain:
+          type: string
+        weight:
+          type: number
+          description: 1.0 = core skill, 0.5 = secondary
+      required:
+        - canonical
+        - synonyms
+        - implicitPhrases
+        - domain
+        - weight
+
+    EvaluationMetrics:
+      type: object
+      properties:
+        accuracy:
+          type: number
+        precision:
+          type: number
+        recall:
+          type: number
+        falsePositives:
+          type: integer
+        falseNegatives:
+          type: integer
+        totalCases:
+          type: integer
+        agreementScore:
+          type: number
+        rankCorrelation:
+          type: number
+        cases:
+          type: array
+          items:
+            $ref: "#/components/schemas/EvaluationCase"
+      required:
+        - accuracy
+        - precision
+        - recall
+        - falsePositives
+        - falseNegatives
+        - totalCases
+        - agreementScore
+        - rankCorrelation
+        - cases
+
+    EvaluationCase:
+      type: object
+      properties:
+        resumeId:
+          type: string
+        jobId:
+          type: string
+        systemDecision:
+          type: string
+        humanDecision:
+          type: string
+        systemScore:
+          type: number
+        humanScore:
+          type: number
+        agree:
+          type: boolean
+        failureMode:
+          type: string
+          nullable: true
+      required:
+        - resumeId
+        - jobId
+        - systemDecision
+        - humanDecision
+        - systemScore
+        - humanScore
+        - agree
+
+    ReliabilitySummary:
+      type: object
+      properties:
+        agreementScore:
+          type: number
+        precision:
+          type: number
+        rankingStability:
+          type: string
+          enum: [HIGH, MEDIUM, LOW]
+        keyFailureModes:
+          type: array
+          items:
+            type: string
+        decisionPhilosophy:
+          type: string
+        systemBoundaries:
+          type: array
+          items:
+            type: string
+        costModel:
+          $ref: "#/components/schemas/CostModel"
+      required:
+        - agreementScore
+        - precision
+        - rankingStability
+        - keyFailureModes
+        - decisionPhilosophy
+        - systemBoundaries
+        - costModel
+
+    CostModel:
+      type: object
+      properties:
+        falsePositiveCost:
+          type: string
+        falseNegativeCost:
+          type: string
+        prioritization:
+          type: string
+      required:
+        - falsePositiveCost
+        - falseNegativeCost
+        - prioritization

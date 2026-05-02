@@ -1,0 +1,350 @@
+Build a production-quality, defensible Resume–Job Matching System designed for a top 1% software engineering portfolio.
+
+This system must NOT be a simple keyword matcher.
+It must behave like a structured hiring decision engine with validation, ranking, reliability analysis, and real dataset integration.
+
+---
+
+🧠 CORE OBJECTIVE
+
+Simulate a recruiter-style evaluation system that:
+
+- Evaluates resume vs job description
+- Produces a decision (not just score)
+- Ranks multiple candidates
+- Validates outputs against human judgment
+- Measures reliability under variation
+- Clearly defines failure cases and system limits
+
+---
+
+📦 DATA SOURCE (CRITICAL — DO THIS PROPERLY)
+
+You MUST use the provided dataset:
+
+- archive.zip (primary dataset source)
+
+Steps:
+
+1. Extract archive.zip
+2. Identify:
+   - resume data
+   - job descriptions
+   - any structured fields
+
+3. CLEAN the dataset:
+   - remove noise
+   - normalize formatting
+   - discard unusable entries
+
+4. Convert into structured JSON:
+
+datasets/
+│
+├── jobs.json
+├── resumes.json
+├── skills.json
+├── evaluation.json
+├── human_validation.json
+├── failure_cases.json
+
+---
+
+⚠️ DATA RULES (NON-NEGOTIABLE)
+
+- DO NOT trust raw dataset blindly
+- LIMIT dataset to high-quality samples (10–20 max for MVP)
+- AUGMENT dataset with synthetic edge cases:
+  - keyword-stuffed resumes
+  - hidden-skill resumes
+  - domain mismatch resumes
+  - noisy resumes
+
+- BUILD skills.json manually:
+  - include synonyms
+  - include implicit mappings
+
+---
+
+⚙️ TECH STACK
+
+- Backend: Python (FastAPI) or Node.js (Express)
+- NLP: sentence-transformers (or equivalent embeddings)
+- Data: JSON (modular structure)
+- Frontend: React (clean dashboard UI)
+
+---
+
+📦 SYSTEM ARCHITECTURE (MODULAR)
+
+Modules must be separated:
+
+1. Parser Module
+   - Input: PDF or text
+   - Output: cleaned text
+   - Handle errors (empty, corrupted input)
+
+2. Extraction Module
+   - Extract:
+     - skills
+     - experience (years, phrases)
+     - project signals
+
+3. Normalization Module
+   - Synonyms mapping
+   - Case-insensitive matching
+   - Deduplication
+
+4. Implicit Skill Inference
+   - Phrase → skill mapping
+   - Lower weight than explicit skills
+
+5. Embedding Module
+   - Generate embeddings
+   - Compute cosine similarity
+   - Cache job embeddings
+
+6. Soft Domain Classification
+   - Output probability distribution
+   - Compute alignment via dot product
+
+7. Scoring Engine
+
+Normalize all scores (0–100):
+
+- semanticScore
+- weightedSkillScore
+- experienceScore
+
+Base Score:
+baseScore =
+  0.5 * semanticScore +
+  0.3 * weightedSkillScore +
+  0.2 * experienceScore
+
+---
+
+🚨 PENALTY SYSTEM (CONTROLLED)
+
+Apply AFTER base score:
+
+- domain mismatch (proportional)
+- low core skill match (<50%)
+- experience gap
+
+Rules:
+- aggregate penalties
+- damping:
+  if totalPenalty > 40 → totalPenalty *= 0.7
+- clamp max penalty = 60
+
+finalScore = clamp(baseScore - totalPenalty, 0–100)
+
+---
+
+🧠 DECISION ENGINE
+
+80–100 → STRONG_FIT  
+60–79 → GOOD_FIT  
+40–59 → WEAK_FIT  
+<40 → REJECT  
+
+Override:
+- low confidence → INSUFFICIENT_DATA
+
+---
+
+⚠️ ADVERSARIAL DEFENSE
+
+- Detect keyword repetition
+- Apply diminishing returns:
+  score *= 1 / log(1 + frequency)
+
+---
+
+🧠 CONTRADICTION DETECTION
+
+Add warnings:
+
+- semantic high + skill low
+- skill high + semantic low
+- experience high + skill low
+
+---
+
+📊 CONFIDENCE SCORE
+
+confidence = 1 - normalized_variance(
+  semanticScore,
+  skillScore,
+  experienceScore
+)
+
+---
+
+📈 RANKING ENGINE
+
+Input:
+- one job
+- multiple resumes
+
+Output:
+- sorted candidates by finalScore
+
+Also include:
+- top 3 candidates
+- pairwise comparisons
+
+---
+
+🧪 EVALUATION FRAMEWORK
+
+Use dataset + synthetic cases.
+
+Compute:
+
+- accuracy
+- precision (CRITICAL)
+- false positives
+- false negatives
+
+---
+
+👥 HUMAN VALIDATION (STRUCTURED)
+
+Rubric:
+
+- skillMatch (0–5)
+- experienceRelevance (0–5)
+- domainFit (0–5)
+
+Total /15
+
+Compare:
+
+- system ranking vs human ranking
+- agreement score
+- rank correlation
+
+---
+
+📉 DISAGREEMENT ANALYSIS
+
+Classify failures:
+
+- semantic overtrust
+- skill extraction failure
+- experience misread
+- domain confusion
+
+---
+
+🔁 STABILITY TEST
+
+For one candidate:
+
+- modify resume slightly
+- re-run system
+
+Output:
+
+- rank shift
+- score variance
+- stability (HIGH / MEDIUM / LOW)
+
+---
+
+💰 COST MODEL
+
+falsePositiveCost = HIGH  
+falseNegativeCost = MEDIUM  
+
+System prioritizes precision to avoid bad hires.
+
+---
+
+📊 RELIABILITY SUMMARY
+
+{
+  agreementScore,
+  precision,
+  rankingStability,
+  keyFailureModes,
+  decisionPhilosophy
+}
+
+---
+
+🚧 SYSTEM BOUNDARIES
+
+Define unsupported cases:
+
+- creative roles
+- sparse resumes
+- unconventional careers
+
+---
+
+🎨 FRONTEND
+
+Must include:
+
+- Resume input
+- Job input
+- Score visualization
+- Skill breakdown
+- Decision label
+- Explanation
+- Ranking view
+- Reliability summary
+
+---
+
+⚡ PERFORMANCE
+
+- Cache embeddings
+- Avoid recomputation
+- Handle large inputs safely
+
+---
+
+🧾 OUTPUT FORMAT
+
+{
+  finalScore,
+  decision,
+  confidence,
+  matchedSkills,
+  missingSkills,
+  warnings,
+  explanation,
+  ranking,
+  evaluationMetrics,
+  reliabilitySummary
+}
+
+---
+
+⚠️ CONSTRAINTS
+
+- Clean modular code
+- Strong error handling
+- No hardcoded outputs
+- Explanations must map to computed data
+- Avoid unnecessary complexity
+
+---
+
+🎯 FINAL GOAL
+
+Build a system that:
+
+- makes decisions
+- explains them
+- validates them
+- exposes its weaknesses
+- remains stable under variation
+
+This is NOT a demo.
+
+This is a defensible, portfolio-level engineering system.

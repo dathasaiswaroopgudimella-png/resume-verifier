@@ -1,0 +1,5 @@
+{
+  "lastRun": "2025-05-02",
+  "totalCases": 10,
+  "notes": "Computed against human_validation.json. System uses TF-IDF semantic similarity + weighted skill match + experience gap penalty."
+}

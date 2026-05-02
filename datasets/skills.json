@@ -1,0 +1,554 @@
+[
+  {
+    "canonical": "Python",
+    "synonyms": [
+      "python3",
+      "py",
+      "python programming"
+    ],
+    "implicitPhrases": [
+      "developed scripts",
+      "built automation",
+      "wrote backend services"
+    ],
+    "domain": "INFORMATION-TECHNOLOGY",
+    "weight": 1.0
+  },
+  {
+    "canonical": "JavaScript",
+    "synonyms": [
+      "JS",
+      "ES6",
+      "ES2015",
+      "ECMAScript",
+      "vanilla JS"
+    ],
+    "implicitPhrases": [
+      "built web applications",
+      "frontend development",
+      "browser scripting"
+    ],
+    "domain": "INFORMATION-TECHNOLOGY",
+    "weight": 1.0
+  },
+  {
+    "canonical": "TypeScript",
+    "synonyms": [
+      "TS",
+      "typed javascript"
+    ],
+    "implicitPhrases": [
+      "typed frontend",
+      "strongly typed JS"
+    ],
+    "domain": "INFORMATION-TECHNOLOGY",
+    "weight": 0.9
+  },
+  {
+    "canonical": "React",
+    "synonyms": [
+      "ReactJS",
+      "React.js",
+      "react hooks"
+    ],
+    "implicitPhrases": [
+      "built single-page applications",
+      "component-based UI",
+      "SPA development"
+    ],
+    "domain": "INFORMATION-TECHNOLOGY",
+    "weight": 1.0
+  },
+  {
+    "canonical": "Node.js",
+    "synonyms": [
+      "NodeJS",
+      "node",
+      "express.js",
+      "expressjs"
+    ],
+    "implicitPhrases": [
+      "REST API development",
+      "server-side JavaScript",
+      "built APIs"
+    ],
+    "domain": "INFORMATION-TECHNOLOGY",
+    "weight": 1.0
+  },
+  {
+    "canonical": "AWS",
+    "synonyms": [
+      "Amazon Web Services",
+      "EC2",
+      "S3",
+      "Lambda",
+      "RDS",
+      "ECS",
+      "EKS",
+      "CloudFormation"
+    ],
+    "implicitPhrases": [
+      "cloud infrastructure",
+      "deployed to cloud",
+      "cloud-native"
+    ],
+    "domain": "INFORMATION-TECHNOLOGY",
+    "weight": 1.0
+  },
+  {
+    "canonical": "Docker",
+    "synonyms": [
+      "containerization",
+      "container",
+      "Dockerfile"
+    ],
+    "implicitPhrases": [
+      "containerized applications",
+      "microservice deployment",
+      "packaged services"
+    ],
+    "domain": "INFORMATION-TECHNOLOGY",
+    "weight": 0.9
+  },
+  {
+    "canonical": "Kubernetes",
+    "synonyms": [
+      "K8s",
+      "k8s",
+      "container orchestration"
+    ],
+    "implicitPhrases": [
+      "orchestrated containers",
+      "managed clusters",
+      "scaled microservices"
+    ],
+    "domain": "INFORMATION-TECHNOLOGY",
+    "weight": 0.9
+  },
+  {
+    "canonical": "SQL",
+    "synonyms": [
+      "MySQL",
+      "PostgreSQL",
+      "Postgres",
+      "SQLite",
+      "MSSQL",
+      "Oracle DB",
+      "relational database"
+    ],
+    "implicitPhrases": [
+      "queried databases",
+      "database management",
+      "wrote queries"
+    ],
+    "domain": "INFORMATION-TECHNOLOGY",
+    "weight": 0.9
+  },
+  {
+    "canonical": "Machine Learning",
+    "synonyms": [
+      "ML",
+      "deep learning",
+      "AI",
+      "artificial intelligence",
+      "neural networks"
+    ],
+    "implicitPhrases": [
+      "trained models",
+      "built predictive models",
+      "implemented algorithms"
+    ],
+    "domain": "INFORMATION-TECHNOLOGY",
+    "weight": 1.0
+  },
+  {
+    "canonical": "TensorFlow",
+    "synonyms": [
+      "TF",
+      "Tensorflow 2",
+      "Keras"
+    ],
+    "implicitPhrases": [
+      "built neural networks",
+      "trained deep learning models"
+    ],
+    "domain": "INFORMATION-TECHNOLOGY",
+    "weight": 0.9
+  },
+  {
+    "canonical": "PyTorch",
+    "synonyms": [
+      "torch"
+    ],
+    "implicitPhrases": [
+      "built ML models",
+      "trained transformers"
+    ],
+    "domain": "INFORMATION-TECHNOLOGY",
+    "weight": 0.9
+  },
+  {
+    "canonical": "CI/CD",
+    "synonyms": [
+      "continuous integration",
+      "continuous deployment",
+      "Jenkins",
+      "GitHub Actions",
+      "GitLab CI",
+      "CircleCI",
+      "Travis CI"
+    ],
+    "implicitPhrases": [
+      "automated deployment pipeline",
+      "built release pipeline",
+      "shipping code continuously"
+    ],
+    "domain": "INFORMATION-TECHNOLOGY",
+    "weight": 0.8
+  },
+  {
+    "canonical": "Git",
+    "synonyms": [
+      "version control",
+      "GitHub",
+      "GitLab",
+      "Bitbucket",
+      "SVN"
+    ],
+    "implicitPhrases": [
+      "collaborated on codebase",
+      "code review",
+      "pull requests"
+    ],
+    "domain": "INFORMATION-TECHNOLOGY",
+    "weight": 0.7
+  },
+  {
+    "canonical": "REST API",
+    "synonyms": [
+      "RESTful API",
+      "REST services",
+      "web services",
+      "HTTP API",
+      "API design"
+    ],
+    "implicitPhrases": [
+      "built APIs",
+      "designed endpoints",
+      "integrated services"
+    ],
+    "domain": "INFORMATION-TECHNOLOGY",
+    "weight": 1.0
+  },
+  {
+    "canonical": "microservices",
+    "synonyms": [
+      "service-oriented architecture",
+      "SOA",
+      "distributed systems",
+      "service mesh"
+    ],
+    "implicitPhrases": [
+      "decomposed monolith",
+      "built distributed systems",
+      "service-to-service communication"
+    ],
+    "domain": "INFORMATION-TECHNOLOGY",
+    "weight": 0.9
+  },
+  {
+    "canonical": "Terraform",
+    "synonyms": [
+      "infrastructure as code",
+      "IaC",
+      "Pulumi"
+    ],
+    "implicitPhrases": [
+      "automated infrastructure",
+      "provisioned cloud resources programmatically"
+    ],
+    "domain": "INFORMATION-TECHNOLOGY",
+    "weight": 0.8
+  },
+  {
+    "canonical": "financial modeling",
+    "synonyms": [
+      "DCF",
+      "LBO",
+      "financial analysis",
+      "pro forma",
+      "three statement model"
+    ],
+    "implicitPhrases": [
+      "built financial models",
+      "projected revenues",
+      "scenario analysis"
+    ],
+    "domain": "FINANCE",
+    "weight": 1.0
+  },
+  {
+    "canonical": "Excel",
+    "synonyms": [
+      "Microsoft Excel",
+      "spreadsheet",
+      "VBA",
+      "pivot tables"
+    ],
+    "implicitPhrases": [
+      "data analysis in spreadsheets",
+      "built dashboards in Excel"
+    ],
+    "domain": "FINANCE",
+    "weight": 0.8
+  },
+  {
+    "canonical": "accounting",
+    "synonyms": [
+      "GAAP",
+      "IFRS",
+      "bookkeeping",
+      "journal entries",
+      "balance sheet"
+    ],
+    "implicitPhrases": [
+      "managed accounts",
+      "prepared financial statements",
+      "reconciled accounts"
+    ],
+    "domain": "FINANCE",
+    "weight": 1.0
+  },
+  {
+    "canonical": "budgeting",
+    "synonyms": [
+      "budget planning",
+      "budget management",
+      "FP&A",
+      "financial planning"
+    ],
+    "implicitPhrases": [
+      "managed budgets",
+      "annual planning",
+      "cost control"
+    ],
+    "domain": "FINANCE",
+    "weight": 0.9
+  },
+  {
+    "canonical": "CFA",
+    "synonyms": [
+      "Chartered Financial Analyst"
+    ],
+    "implicitPhrases": [
+      "passed CFA exams",
+      "investment analysis certification"
+    ],
+    "domain": "FINANCE",
+    "weight": 0.8
+  },
+  {
+    "canonical": "talent management",
+    "synonyms": [
+      "talent acquisition",
+      "workforce planning",
+      "succession planning"
+    ],
+    "implicitPhrases": [
+      "hired top talent",
+      "built talent pipelines",
+      "recruited candidates"
+    ],
+    "domain": "HR",
+    "weight": 1.0
+  },
+  {
+    "canonical": "employee relations",
+    "synonyms": [
+      "ER",
+      "workplace relations",
+      "conflict resolution",
+      "grievance handling"
+    ],
+    "implicitPhrases": [
+      "resolved workplace disputes",
+      "managed employee concerns",
+      "HR investigations"
+    ],
+    "domain": "HR",
+    "weight": 1.0
+  },
+  {
+    "canonical": "performance management",
+    "synonyms": [
+      "performance reviews",
+      "PIP",
+      "performance improvement",
+      "360 feedback"
+    ],
+    "implicitPhrases": [
+      "conducted performance reviews",
+      "managed underperformers",
+      "drove accountability"
+    ],
+    "domain": "HR",
+    "weight": 0.9
+  },
+  {
+    "canonical": "HRIS",
+    "synonyms": [
+      "Workday",
+      "SuccessFactors",
+      "ADP",
+      "BambooHR",
+      "SAP HR"
+    ],
+    "implicitPhrases": [
+      "managed HR systems",
+      "HRIS administration"
+    ],
+    "domain": "HR",
+    "weight": 0.7
+  },
+  {
+    "canonical": "AutoCAD",
+    "synonyms": [
+      "CAD",
+      "drafting",
+      "Revit",
+      "SolidWorks",
+      "CAD design"
+    ],
+    "implicitPhrases": [
+      "produced technical drawings",
+      "designed structures in CAD"
+    ],
+    "domain": "ENGINEERING",
+    "weight": 1.0
+  },
+  {
+    "canonical": "structural analysis",
+    "synonyms": [
+      "STAAD Pro",
+      "SAP2000",
+      "structural design",
+      "load analysis"
+    ],
+    "implicitPhrases": [
+      "analyzed structural loads",
+      "designed structural members"
+    ],
+    "domain": "ENGINEERING",
+    "weight": 1.0
+  },
+  {
+    "canonical": "project management",
+    "synonyms": [
+      "PMP",
+      "agile",
+      "scrum",
+      "project planning",
+      "project delivery"
+    ],
+    "implicitPhrases": [
+      "managed project timelines",
+      "led cross-functional teams",
+      "delivered projects on time"
+    ],
+    "domain": "ENGINEERING",
+    "weight": 0.8
+  },
+  {
+    "canonical": "M&A",
+    "synonyms": [
+      "mergers and acquisitions",
+      "deal making",
+      "corporate transactions"
+    ],
+    "implicitPhrases": [
+      "executed transactions",
+      "supported M&A deals",
+      "due diligence"
+    ],
+    "domain": "BANKING",
+    "weight": 1.0
+  },
+  {
+    "canonical": "capital markets",
+    "synonyms": [
+      "equity",
+      "debt capital markets",
+      "IPO",
+      "bond issuance"
+    ],
+    "implicitPhrases": [
+      "raised capital",
+      "supported equity offerings"
+    ],
+    "domain": "BANKING",
+    "weight": 1.0
+  },
+  {
+    "canonical": "B2B sales",
+    "synonyms": [
+      "enterprise sales",
+      "business development",
+      "solution selling",
+      "consultative selling"
+    ],
+    "implicitPhrases": [
+      "closed enterprise deals",
+      "grew revenue",
+      "managed sales pipeline"
+    ],
+    "domain": "SALES",
+    "weight": 1.0
+  },
+  {
+    "canonical": "Salesforce",
+    "synonyms": [
+      "CRM",
+      "customer relationship management",
+      "HubSpot",
+      "Dynamics 365"
+    ],
+    "implicitPhrases": [
+      "managed CRM",
+      "tracked pipeline in Salesforce"
+    ],
+    "domain": "SALES",
+    "weight": 0.8
+  },
+  {
+    "canonical": "patient care",
+    "synonyms": [
+      "clinical care",
+      "bedside manner",
+      "nursing",
+      "direct patient care"
+    ],
+    "implicitPhrases": [
+      "cared for patients",
+      "provided clinical support",
+      "monitored patient health"
+    ],
+    "domain": "HEALTHCARE",
+    "weight": 1.0
+  },
+  {
+    "canonical": "RN license",
+    "synonyms": [
+      "registered nurse",
+      "RN",
+      "nursing license",
+      "BSN",
+      "NCLEX"
+    ],
+    "implicitPhrases": [
+      "licensed nurse",
+      "nursing credentials"
+    ],
+    "domain": "HEALTHCARE",
+    "weight": 1.0
+  }
+]
