@@ -1,0 +1,198 @@
+You are a senior software engineer and system architect.
+
+You are given a fully built Resume–Job Matching System designed as a high-end portfolio project.
+
+Your task is NOT to rebuild it.
+Your task is to critically evaluate, improve, and upgrade it into a top 1% engineering-level system.
+
+---
+
+🧠 PRIMARY OBJECTIVE
+
+Turn the existing system into:
+
+- more reliable
+- more realistic
+- harder to break
+- easier to defend in interviews
+
+---
+
+⚠️ RULES (STRICT)
+
+1. DO NOT add random features.
+2. DO NOT increase complexity without justification.
+3. EVERY improvement must:
+   - solve a real weakness
+   - improve reliability OR credibility OR performance
+
+4. Maintain:
+   - modular architecture
+   - explainability
+   - evaluation capability
+
+---
+
+🔍 STEP 1 — SYSTEM AUDIT (MANDATORY)
+
+Analyze the current implementation and identify:
+
+- scoring weaknesses
+- dataset issues
+- instability problems
+- incorrect decisions
+- performance bottlenecks
+- UX problems
+
+Output:
+
+{
+  "criticalIssues": [...],
+  "mediumIssues": [...],
+  "minorIssues": [...]
+}
+
+---
+
+🧠 STEP 2 — FAILURE ANALYSIS
+
+Run or simulate tests and find:
+
+- at least 3 cases where system fails badly
+- explain WHY failure occurs
+
+Output:
+
+{
+  "failureCases": [
+    {
+      "input": "...",
+      "expected": "...",
+      "actual": "...",
+      "reason": "..."
+    }
+  ]
+}
+
+---
+
+⚙️ STEP 3 — PRIORITIZED IMPROVEMENTS
+
+Propose ONLY high-impact upgrades.
+
+Each improvement must include:
+
+{
+  "problem": "...",
+  "solution": "...",
+  "impact": "high/medium",
+  "complexity": "low/medium/high",
+  "whyItMatters": "..."
+}
+
+Limit to top 5 improvements.
+
+---
+
+🚀 STEP 4 — IMPLEMENT BEST IMPROVEMENTS
+
+Select top 2–3 improvements and implement them.
+
+Requirements:
+
+- clean modular code
+- no breaking existing system
+- maintain explainability
+- include comments
+
+---
+
+🧪 STEP 5 — VALIDATION AFTER IMPROVEMENT
+
+Re-run evaluation:
+
+- accuracy
+- precision
+- ranking stability
+
+Compare BEFORE vs AFTER:
+
+{
+  "before": {...},
+  "after": {...},
+  "improvement": "..."
+}
+
+---
+
+📊 STEP 6 — RELIABILITY CHECK
+
+Verify:
+
+- penalty system working correctly
+- domain mismatch handled properly
+- keyword stuffing reduced
+- stability improved
+
+---
+
+🎯 STEP 7 — UX & OUTPUT IMPROVEMENT
+
+Improve ONLY if needed:
+
+- clarity of explanation
+- readability of results
+- decision transparency
+
+DO NOT overdesign UI.
+
+---
+
+⚡ STEP 8 — PERFORMANCE OPTIMIZATION
+
+Check:
+
+- redundant computations
+- embedding reuse
+- response time
+
+Optimize only if necessary.
+
+---
+
+🧾 STEP 9 — FINAL SYSTEM REPORT
+
+Return:
+
+{
+  "improvementsMade": [...],
+  "performanceImpact": "...",
+  "accuracyChange": "...",
+  "remainingWeaknesses": [...],
+  "nextUpgradeIdeas": [...]
+}
+
+---
+
+💣 IMPORTANT CONSTRAINT
+
+If something is already working well:
+→ DO NOT change it.
+
+Focus only on real weaknesses.
+
+---
+
+🎯 FINAL GOAL
+
+Make the system:
+
+- harder to fool
+- more consistent
+- more defensible
+- closer to real-world behavior
+
+This is not a demo system.
+This is a serious engineering system.
+
+Act accordingly.

@@ -92,13 +92,22 @@ export function classifyDomain(
   // Score from text keywords
   const lower = text.toLowerCase();
   const domainKeywords: Record<string, string[]> = {
-    "INFORMATION-TECHNOLOGY": ["software", "developer", "engineer", "coding", "database", "server", "api", "cloud", "devops", "backend", "frontend"],
-    "FINANCE": ["finance", "accounting", "budget", "revenue", "cfa", "cpa", "audit", "tax", "investment", "portfolio", "valuation"],
-    "HR": ["human resources", "hr", "recruiting", "talent", "payroll", "benefits", "onboarding", "hris", "compensation"],
-    "BANKING": ["banking", "bank", "investment banking", "capital markets", "trading", "m&a", "merger", "acquisition", "hedge fund"],
-    "SALES": ["sales", "revenue", "quota", "pipeline", "account executive", "business development", "crm", "salesforce"],
-    "ENGINEERING": ["mechanical", "civil", "structural", "electrical", "manufacturing", "cad", "autocad", "revit", "construction"],
-    "HEALTHCARE": ["nurse", "patient", "clinical", "medical", "hospital", "physician", "healthcare", "icu", "icu", "bsn"],
+    // "computer", "information", "technology", "systems", "technical" added so that
+    // IT-adjacent resumes (instructors, managers, analysts) correctly classify as IT
+    // even when they don't use specific engineering vocabulary like "backend" or "devops".
+    // "information" and "systems" removed — too generic (appear in HR, finance, etc.)
+    // "it" as standalone added cautiously (matches "IT Instructor", "IT Manager" etc.)
+    "INFORMATION-TECHNOLOGY": [
+      "software", "developer", "engineer", "coding", "database", "server", "api",
+      "cloud", "devops", "backend", "frontend", "computer", "technical",
+      "network", "programming", "infrastructure", "cybersecurity", "linux",
+    ],
+    "FINANCE": ["finance", "accounting", "budget", "revenue", "cfa", "cpa", "audit", "tax", "investment", "portfolio", "valuation", "financial", "controller", "treasurer"],
+    "HR": ["human resources", "hr", "recruiting", "talent", "payroll", "benefits", "onboarding", "hris", "compensation", "employee", "workforce", "staffing"],
+    "BANKING": ["banking", "bank", "investment banking", "capital markets", "trading", "merger", "acquisition", "hedge fund", "equity", "fixed income"],
+    "SALES": ["sales", "quota", "pipeline", "account executive", "business development", "crm", "salesforce", "revenue growth", "prospecting"],
+    "ENGINEERING": ["mechanical", "civil", "structural", "electrical", "manufacturing", "cad", "autocad", "revit", "construction", "engineering", "machining"],
+    "HEALTHCARE": ["nurse", "patient", "clinical", "medical", "hospital", "physician", "healthcare", "icu", "bsn", "nursing", "care"],
   };
 
   for (const [domain, keywords] of Object.entries(domainKeywords)) {

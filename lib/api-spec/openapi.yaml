@@ -282,6 +282,9 @@ components:
           type: number
         experienceGap:
           type: number
+        adversarialStuffing:
+          type: number
+          description: Credibility penalty applied when keyword stuffing is detected
         total:
           type: number
         damped:
@@ -290,6 +293,7 @@ components:
         - domainMismatch
         - lowCoreSkillMatch
         - experienceGap
+        - adversarialStuffing
         - total
         - damped
 

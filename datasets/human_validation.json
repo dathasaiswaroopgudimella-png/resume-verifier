@@ -4,52 +4,52 @@
     "jobId": "J001",
     "humanRater": "Senior Recruiter",
     "scores": {
-      "skillMatch": 3,
-      "experienceRelevance": 2,
-      "domainFit": 5
+      "skillMatch": 1,
+      "experienceRelevance": 1,
+      "domainFit": 3
     },
-    "totalScore": 10,
-    "humanDecision": "WEAK_FIT",
-    "notes": "IT background but intern-level experience, not enough for senior role"
+    "totalScore": 5,
+    "humanDecision": "REJECT",
+    "notes": "IT admin intern applying for Senior Backend SE — no Python/Docker/K8s, intern-level experience far below 5-year requirement"
   },
   {
     "resumeId": "R002",
     "jobId": "J001",
     "humanRater": "Senior Recruiter",
     "scores": {
-      "skillMatch": 3,
+      "skillMatch": 2,
       "experienceRelevance": 3,
-      "domainFit": 5
+      "domainFit": 3
     },
-    "totalScore": 11,
-    "humanDecision": "GOOD_FIT",
-    "notes": "Solid IT professional, reasonable match for the role"
+    "totalScore": 8,
+    "humanDecision": "WEAK_FIT",
+    "notes": "IT Manager with 15 years — domain adjacent but manages teams not software; lacks hands-on Python/Docker engineering skills"
   },
   {
     "resumeId": "R003",
     "jobId": "J001",
     "humanRater": "Senior Recruiter",
     "scores": {
-      "skillMatch": 4,
-      "experienceRelevance": 4,
-      "domainFit": 5
+      "skillMatch": 0,
+      "experienceRelevance": 2,
+      "domainFit": 2
     },
-    "totalScore": 13,
-    "humanDecision": "STRONG_FIT",
-    "notes": "Strong IT profile, good fit for senior engineering role"
+    "totalScore": 4,
+    "humanDecision": "REJECT",
+    "notes": "IT Instructor applying for Senior Backend SE — teaches technology but has zero coding skills (no Python, Node.js, Docker, K8s, REST API, microservices)"
   },
   {
     "resumeId": "R006",
     "jobId": "J005",
     "humanRater": "Finance Recruiter",
     "scores": {
-      "skillMatch": 4,
+      "skillMatch": 3,
       "experienceRelevance": 4,
       "domainFit": 5
     },
-    "totalScore": 13,
-    "humanDecision": "STRONG_FIT",
-    "notes": "Clear financial background, strong domain fit"
+    "totalScore": 12,
+    "humanDecision": "GOOD_FIT",
+    "notes": "Finance Manager with accounting/reporting background — strong domain fit, mentions budgeting and financial reporting; missing explicit Excel/modeling/variance analysis"
   },
   {
     "resumeId": "R007",
@@ -82,13 +82,13 @@
     "jobId": "J006",
     "humanRater": "HR Director",
     "scores": {
-      "skillMatch": 5,
-      "experienceRelevance": 5,
-      "domainFit": 5
+      "skillMatch": 1,
+      "experienceRelevance": 2,
+      "domainFit": 3
     },
-    "totalScore": 15,
-    "humanDecision": "STRONG_FIT",
-    "notes": "Perfect HR HRBP profile"
+    "totalScore": 6,
+    "humanDecision": "REJECT",
+    "notes": "HR Specialist focused on information systems administration, not strategic HRBP — text contains zero mentions of employee relations, talent management, performance management, HRIS, HR strategy, or recruiting"
   },
   {
     "resumeId": "R015",

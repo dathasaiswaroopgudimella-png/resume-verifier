@@ -14,7 +14,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertTriangle, CheckCircle, Info, XCircle } from "lucide-react";
 import { useListJobs, useListResumes, useMatchResumeToJob } from "@workspace/api-client-react";
 import { RadialBarChart, RadialBar, ResponsiveContainer, PolarAngleAxis } from "recharts";
-import { MatchResult, MatchResultDecision } from "@workspace/api-client-react/src/generated/api.schemas";
+import type { MatchResult, MatchResultDecision } from "@workspace/api-client-react";
 
 const matchSchema = z.object({
   jobId: z.string().optional(),

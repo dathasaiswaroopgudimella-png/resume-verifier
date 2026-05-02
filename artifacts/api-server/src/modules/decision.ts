@@ -11,8 +11,11 @@ export type Decision =
   | "INSUFFICIENT_DATA";
 
 export function makeDecision(finalScore: number, confidence: number): Decision {
-  // Low confidence override
-  if (confidence < 0.3) {
+  // INSUFFICIENT_DATA only for genuinely sparse resumes with near-zero confidence.
+  // HIGH VARIANCE (contradictory signals: e.g. lots of experience but wrong skills)
+  // is valid information — the system should still return REJECT/WEAK_FIT, not refuse.
+  // Threshold 0.1 catches truly empty resumes (< ~30 words), not contradictory ones.
+  if (confidence < 0.1) {
     return "INSUFFICIENT_DATA";
   }
 

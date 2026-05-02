@@ -42,6 +42,11 @@ export const MatchResumeToJobResponse = zod.object({
     domainMismatch: zod.number(),
     lowCoreSkillMatch: zod.number(),
     experienceGap: zod.number(),
+    adversarialStuffing: zod
+      .number()
+      .describe(
+        "Credibility penalty applied when keyword stuffing is detected",
+      ),
     total: zod.number(),
     damped: zod.boolean(),
   }),
@@ -116,6 +121,11 @@ export const RankCandidatesResponse = zod.object({
           domainMismatch: zod.number(),
           lowCoreSkillMatch: zod.number(),
           experienceGap: zod.number(),
+          adversarialStuffing: zod
+            .number()
+            .describe(
+              "Credibility penalty applied when keyword stuffing is detected",
+            ),
           total: zod.number(),
           damped: zod.boolean(),
         }),
@@ -168,6 +178,11 @@ export const RankCandidatesResponse = zod.object({
           domainMismatch: zod.number(),
           lowCoreSkillMatch: zod.number(),
           experienceGap: zod.number(),
+          adversarialStuffing: zod
+            .number()
+            .describe(
+              "Credibility penalty applied when keyword stuffing is detected",
+            ),
           total: zod.number(),
           damped: zod.boolean(),
         }),
@@ -237,6 +252,11 @@ export const RunStabilityTestResponse = zod.object({
       domainMismatch: zod.number(),
       lowCoreSkillMatch: zod.number(),
       experienceGap: zod.number(),
+      adversarialStuffing: zod
+        .number()
+        .describe(
+          "Credibility penalty applied when keyword stuffing is detected",
+        ),
       total: zod.number(),
       damped: zod.boolean(),
     }),
@@ -282,6 +302,11 @@ export const RunStabilityTestResponse = zod.object({
       domainMismatch: zod.number(),
       lowCoreSkillMatch: zod.number(),
       experienceGap: zod.number(),
+      adversarialStuffing: zod
+        .number()
+        .describe(
+          "Credibility penalty applied when keyword stuffing is detected",
+        ),
       total: zod.number(),
       damped: zod.boolean(),
     }),

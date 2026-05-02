@@ -10,6 +10,8 @@ export interface PenaltyBreakdown {
   domainMismatch: number;
   lowCoreSkillMatch: number;
   experienceGap: number;
+  /** Credibility penalty applied when keyword stuffing is detected */
+  adversarialStuffing: number;
   total: number;
   damped: boolean;
 }

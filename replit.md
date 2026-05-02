@@ -43,8 +43,8 @@ Source dataset: Kaggle Resume Dataset (2,484 resumes across 24 job categories)
 1. **parser.ts** — Cleans and validates raw text input. Handles HTML, unicode, truncation.
 2. **extractor.ts** — Extracts explicit skills, implied skills via phrase matching, experience years via regex + date range inference, project signals, keyword frequency map.
 3. **normalizer.ts** — Skills taxonomy with synonyms. Domain classification (soft probability distribution). Deduplication.
-4. **embedder.ts** — TF-IDF vectorization + cosine similarity. Adversarial diminishing returns via `1/log(1+freq)`. Embedding cache with LRU eviction.
-5. **scorer.ts** — Full scoring pipeline: semantic (0.5) + skill (0.3) + experience (0.2) → baseScore. Penalty system (domain mismatch, low core skill match, experience gap, damping). Confidence from normalized variance. Contradiction warnings. Explanation generation.
+4. **embedder.ts** — BM25 job-relevance scoring (K1=1.5, B=0.75, AVG_RESUME_TOKENS=190). FNV1a cache keys. Job-relative adversarial stuffing detection (excludes generic resume words; flags terms repeated >6× vs job frequency). Saturation prevents score inflation from repetition.
+5. **scorer.ts** — Full scoring pipeline: semantic (0.5) + skill (0.3) + experience (0.2) → baseScore. Penalty system (domain mismatch, low core skill match, experience gap, adversarial stuffing, damping at >40, cap at 60). Confidence from word count + signal richness (not variance). Contradiction warnings. Explanation generation.
 6. **decision.ts** — Maps finalScore + confidence → STRONG_FIT / GOOD_FIT / WEAK_FIT / REJECT / INSUFFICIENT_DATA.
 7. **ranker.ts** — Sorts multiple candidates by finalScore. Top 3 extraction. Pairwise comparison with key differentiator identification.
 
@@ -77,15 +77,17 @@ Source dataset: Kaggle Resume Dataset (2,484 resumes across 24 job categories)
 baseScore = 0.5 * semanticScore + 0.3 * weightedSkillScore + 0.2 * experienceScore
 
 Penalties:
-  - Domain mismatch (proportional to domain distribution)
-  - Low core skill match (<50% → penalty)
-  - Experience gap (years below requirement)
+  - Domain mismatch (proportional to domain distribution difference)
+  - Low core skill match (<50% required skills matched → penalty up to 25)
+  - Experience gap (years below requirement → up to 15)
+  - Adversarial stuffing (job-relative over-repetition of non-generic terms → 10)
   - Damping: if totalPenalty > 40 → totalPenalty *= 0.7
   - Cap: max penalty = 60
 
 finalScore = clamp(baseScore - totalPenalty, 0, 100)
 
-Confidence = 1 - normalized_variance(semanticScore, skillScore, experienceScore)
+Confidence = wordCountFactor * 0.7 + signalRichnessFactor * 0.3
+  (reflects DATA RICHNESS, not signal agreement — high variance is informative, not uncertain)
 ```
 
 ## Decision Thresholds
@@ -96,7 +98,7 @@ Confidence = 1 - normalized_variance(semanticScore, skillScore, experienceScore)
 | 60–79 | GOOD_FIT |
 | 40–59 | WEAK_FIT |
 | <40 | REJECT |
-| any + confidence <0.3 | INSUFFICIENT_DATA |
+| any + confidence <0.1 | INSUFFICIENT_DATA (truly empty resume only) |
 
 ## Known System Limits
 

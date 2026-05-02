@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { useListJobs, useListResumes, useRankCandidates } from "@workspace/api-client-react";
-import { MatchResultDecision } from "@workspace/api-client-react/src/generated/api.schemas";
+import type { MatchResultDecision } from "@workspace/api-client-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Trophy, ChevronRight, Scale } from "lucide-react";
 
